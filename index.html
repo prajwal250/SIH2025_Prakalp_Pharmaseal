@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang = 'en'>
+    <head>
+        <meta charset = 'utf-8' />
+        <meta name = 'viewport' content = 'width = 1536,height = 730,initial-scale = 1' />
+        <title>Medicine Blockchain Ledger</title>
+        <link rel = 'stylesheet' href = 'Prakalp_Pharmaseal_Design.css' />
+        <link rel = 'icon' href = 'Prakalp_Pharmaseal_Logo_Icon.png' />
+    </head>
+    <body>
+        <header>
+            <h1>Medicine BlockChain</h1>
+            <marquee>Blockchain Ledger with QR Generation for Medicine Authenticity</marquee>
+        </header>
+        <div id = 'main_btns'>
+            <h1>Welcome to Prakalp Pharmaseal!</h1> 
+            <button id = 'createPackBtn'>Register Medicine and Create Pack as Manufacturer</button>
+            <button id = 'scanVerifyBtn'>Verify Pack and Transfer Ownership</button>
+            <button id = 'transferOwnerBtn'></button>
+            <button id = 'infoBtn'>Show Website Information</button>
+            <button id = 'about-the-creator-btn'>Show About the Creator</button>
+            <div id = 'popup-overlay'></div>
+        </div>
+        <form id = 'createPack' autocomplete = 'off'>
+            <h2>Register Medicine (Create Pack)</h2>
+            <label for = 'm_name'>Medicine Name</label>
+            <input id = 'm_name' placeholder = 'Paracetamol 500mg' required />
+            <label for = 'm_batch'>Batch of Medicine</label><br>
+            <input id = 'm_batch' placeholder = 'B2025-001' required /><br>
+            <label for = 'm_man'>Manufacturing Date</label><br>
+            <input id = 'm_man' type = 'date' required /><br>
+            <label for = 'm_exp'>Expiry Date</label><br>
+            <input id = 'm_exp' type = 'date' required /><br>
+            <label for = 'm_qty'>Quantity</label><br>
+            <input id = 'm_qty' type = 'number' step = 'any' placeholder = 'e.g. 10 strips' required /><br>
+            <label for = 'm_qty_unit'>Quantity Unit</label><br>
+            <input id = 'm_qty_unit' placeholder = 'e.g. strips, bottles, vials, l, ml, g, mg etc' required /><br>
+            <label for = 'm_manufacturer'>Manufacturing Company</label><br>
+            <input id = 'm_manufacturer' placeholder = 'Pharma Ltd' required /><br>
+            <label for = 'm_license'>Manufacturing License Number</label><br>
+            <input id = 'm_license' placeholder = 'e.g., A0024518' required /><br>
+            <label for = 'm_company_email'>Official Company Email ID</label><br>
+            <input id = 'm_company_email' type = 'email' placeholder = 'contact@pharma.com' required /><br>
+            <label for = 'm_location'>Complete Address of Manufacturing Plant</label><br>
+            <input id = 'm_location' placeholder = 'Full address, e.g. 123 Pharma Road, Ghaziabad, Uttar Pradesh, India' required /><br>
+            <label for = 'm_manager_name'>Plant Manager Name</label><br>
+            <input id = 'm_manager_name' placeholder = 'Mr. Ranjit Jana' required /><br>
+            <label for = 'm_manager_email'>Plant Manager Email ID</label><br>
+            <input id = 'm_manager_email' type = 'email' placeholder = 'manager@email.com' required /><br>
+            <button type = 'submit'>Create Pack & Add to Chain</button>
+            <button type = 'reset' >Reset Form</button>
+            <div id = 'main_data_create'>
+                <h1>Generated Pack ID (Scan or Copy)<span id = 'PackId'></span><button type = 'button' id = 'copyPackIdBtn' title = 'Copy Pack ID' aria-label = 'Copy Pack ID'><svg class = 'ic-copy' viewBox = '0 0 24 24' width = '26' height = '26' fill = 'none' stroke = 'currentColor' stroke-width = '2' stroke-linecap = 'round' stroke-linejoin = 'round'><rect x = '9' y = '9' width = '13' height = '13' rx = '2'/><path d = 'M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/></svg><svg class = 'ic-done' viewBox = '0 0 24 24' width = '26' height = '26' fill = 'none' stroke = 'currentColor' stroke-width = '3' stroke-linecap = 'round' stroke-linejoin = 'round'><path d = 'M20 6 9 17l-5-5'/></svg></button><button type = 'button' id = 'downloadQrBtn' title = 'Download QR Code' aria-label = 'Download QR Code'><svg viewBox = '0 0 24 24' width = '26' height = '26' fill = 'none' stroke = 'currentColor' stroke-width = '2' stroke-linecap = 'round' stroke-linejoin = 'round'><path d = 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/><path d = 'M7 10l5 5 5-5'/><path d = 'M12 15V3'/></svg></button></h1>
+                <div id = 'qrcode'></div>
+            </div>
+        </form>
+        <form id = 'scan_verify' autocomplete = 'off'>
+            <h2>Verify Pack / Track Supply Chain</h2>
+            <label for = 'verifyID'>Enter Pack ID (or Paste Scanned QR Value) : </label>
+            <input id = 'verifyID' placeholder = 'Paste Pack ID here' required />
+            <pre id = 'verifyResult'>No Verification Yet.</pre>
+            <button type = 'submit'>Verify and Track Supply Chain</button>
+            <button type = 'reset'>Reset Pack ID Input</button>
+            <div id = 'note' role = 'note'>
+                <p><strong>Note</strong> : This Ledger Follows Exactly <strong>6</strong> <strong>Stages</strong>, Always in This Order :</p>
+                <ol id = 'note-stages'>
+                    <li><span>Manufacturer</span></li>
+                    <li><span>Warehouse</span></li>
+                    <li><span>Distributor</span></li>
+                    <li><span>Retailer</span></li>
+                    <li><span>Clinic</span></li>
+                    <li><span>Customer</span></li>
+                </ol>
+                <ol id = 'note-steps'>
+                    <li><span>Find <strong class = 'k-own'>Your Own Stage</strong> in the Chain Above. You Belong to One Stage ONLY.</span></li>
+                    <li><span>Verify the Pack ID First. The Pack must be shown as <strong class = 'k-valid'>Valid</strong>.</span></li>
+                    <li>The Pack's <strong class = 'k-cur'>Current Stage</strong> MUST be Exactly the Stage <strong class = 'k-prev'>BEFORE Yours</strong> (or the Transfer Ownership Form MUST Show Your Stage as the <em class = 'k-to'>Transfer-To</em> Stage).</li>
+                    <li><span>Only then Perform the Transfer, so Your Stage is Appended to the Chain and <strong>Stored in Our Database</strong>.</span></li>
+                </ol>
+                <span id = 'note-eg'><span class = 'nlis'><strong class = 'k-prev'>Example</strong>: To Receive a Pack as <strong class = 'k-own'>Retailer</strong>, It MUST Currently be at <strong class = 'k-cur'>Distributor</strong>. Verify it, then Transfer to <em class = 'k-to'>Retailer</em>.</span></span>
+                <span id = 'note-rule'><span class = 'nlis'><strong class = 'k-bad'>No Transfer is Possible</strong> for a Pack that is Invalid, Tampered, Expired or Already at <strong class = 'k-valid'>Customer</strong> (the Final Stage).</span></span>
+                <span id = 'note-warn'><span class = 'nlis'><strong>Warning</strong>: A Pack Shown as <strong class = 'k-valid'>Valid</strong> is NOT Always Genuine.<br>As One Person can Fill in Several Stages, a Dishonest Handler can Forge the Whole Chain and Make a Fake Pack Appear Valid.<br>If the Pack's <strong class = 'k-cur'>Current Stage</strong> is NOT Exactly the Stage <strong class = 'k-prev'>Before Yours</strong>, Treat it as <strong class = 'k-bad'>Tampered</strong>. Do NOT Accept it, and Report it.</span></span>
+            </div>
+        </form>
+        <form id = 'transfer_owner' autocomplete = 'off'></form>
+        <div id = 'info_sec'>
+            <h2>How Our Solution Empowers Genuine Healthcare</h2>
+            <ul>
+                <li><strong>Unbreakable Medicine Identity</strong><span>:</span> Every Medicine Strip or Bottle Receives a Tamper-Proof, Blockchain-Based Unique QR/NFC Tag at the Point of Manufacture, <br>Making Forgery Virtually Impossible and Giving Each Unit an Immutable Digital Identity that can be Verified Anywhere.</li>
+                <li><strong>End-to-End Traceability</strong><span>:</span> Custody Transfers - from Manufacturer to Distributor, to Retailer - are Securely Recorded as Signed Blockchain Transactions, <br>Establishing a Freely Auditable Supply Trail that Exposes Fakes and Unauthorized Handling.</li>
+                <li><strong>Instant Authenticity Checks</strong><span>:</span> Scanning the QR/NFC Code Instantly Reveals the Full Supply Chain, Validates each Link via Cryptographic Hash Checks, <br>and Enables Quick Detection of Tampering, Counterfeits, and Expired Medicines at any Point - from Rural Clinics to Urban Pharmacies.</li>
+                <li><strong>Production-Grade Security</strong><span>:</span> The System Incorporates Robust Server-Side Blockchain Infrastructure, Secure QR/NFC Tag Generation, Advanced Key Management, <br>KYC Verification for All Supply Actors, and Dynamic Liveness Checks for On-Phone Scanning - Making Every Point in the Chain Resilient to Fraud and System Abuse.</li>
+            </ul>
+        </div>
+        <footer>
+            <h2>About the Creator</h2>
+            <a href = 'https://www.linkedin.com/in/prajwal250' target = '_blank'><img src = '/User_Contact_Form/Creator_Photo.jpg' alt = 'Prajwal Das' /></a>
+            <p><span id = 'f-copy'>©</span> <span id = 'f-date'>10th Sep 2025</span>, Released under <a href = 'https://github.com/prajwal250/SIH2025_Prakalp_Pharmaseal/blob/main/LICENSE' target = '_blank'>MIT License</a>.</p>
+            <p>Created by <span id = 'f-name'>Prajwal Das</span>, a <span id = 'f-year'>3rd Year</span> Student of <span id = 'f-course'>B.Tech CSE</span> at <a href = 'https://www.ipec.org.in/' target = '_blank'>IPEC, Ghaziabad</a>, Affiliated with <a href = 'https://aktu.ac.in/' target = '_blank'>AKTU, Lucknow</a>.</p>
+            <p>Built for the <span id = 'f-event'>Smart India Hackathon 2025</span> with Project Title <span id = 'f-project'>Prakalp Pharmaseal</span>, along with 5 Team Members: <span class = 'f-team'>Prince</span>, <span class = 'f-team'>Abhineet</span>, <span class = 'f-team'>Rahul</span>, <span class = 'f-team'>Lipika</span> and <span class = 'f-team'>Kritika</span>.</p>
+            <p>A Blockchain Ledger Site with QR Generation for Medicine Authenticity: Register Medicine Packs, Verify them, Track and Transfer Ownership across Supply Chain.</p>
+            <p>Official Site : <a href = 'https://prajwal250.github.io/SIH2025_Prakalp_Pharmaseal/' target = '_blank'>https://prajwal250.github.io/SIH2025_Prakalp_Pharmaseal/</a>.</p>
+            <p>Found a Problem in the Website, or have a Suggestion? Please let me know through the <a href = '/User_Contact_Form/' target = '_blank'>Contact Form</a>.</p>
+        </footer>
+    </body>
+    <script src = 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js'></script>
+    <script src = 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js'></script>
+    <script src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'></script>
+    <script src = 'Prakalp_Pharmaseal_Working.js'></script>
+</html>
